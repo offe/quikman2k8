@@ -1474,16 +1474,107 @@ FRUITSCORE:
 ;********************************************************************
 ; Custom character data -- must reside $1C00 - $1DFF
 		.assert * = $1C00, error, "Graphics not at $1C00"
-		.byte	$3E, $7C, $F8, $F0, $F0, $F8, $7C, $3E	; @ sprite #0 - quikman
-		.byte	$00, $00, $00, $00, $00, $00, $00, $00	; A
-		.byte	$38, $7C, $FE, $92, $FE, $FE, $FE, $AA	; B sprite #1 - red
-		.byte	$00, $00, $00, $00, $00, $00, $00, $00	; C
-		.byte	$38, $7C, $FE, $92, $FE, $FE, $FE, $AA	; D sprite #2 - green
-		.byte	$00, $00, $00, $00, $00, $00, $00, $00	; E
-		.byte	$38, $7C, $FE, $92, $FE, $FE, $FE, $AA	; F sprite #3 - cyan
-		.byte	$00, $00, $00, $00, $00, $00, $00, $00	; G
-		.byte	$38, $7C, $FE, $92, $FE, $FE, $FE, $AA	; H sprite #4 - yellow
-		.byte	$00, $00, $00, $00, $00, $00, $00, $00	; I
+			; @ sprite #0 - quikman
+QUIKMAN_GFX:
+		.byte	%00111110
+		.byte	%01111100
+		.byte	%11111000
+		.byte	%11110000
+		.byte	%11110000
+		.byte	%11111000
+		.byte	%01111100
+		.byte	%00111110
+			; A
+A_GFX:
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+			; B sprite #1 - red
+SPRITE1_RED_GFX:
+		.byte	%00111000
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%10010010
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%10101010
+			; C
+C_GFX:
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+			; D sprite #2 - green
+SPRITE2_GREEN_GFX:
+		.byte	%00111000
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%10010010
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%10101010
+			; E
+E_GFX:
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+			; F sprite #3 - cyan
+SPRITE3_CYAN_GFX:
+		.byte	%00111000
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%10010010
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%10101010
+			; G
+G_GFX:
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+			; H sprite #4 - yellow
+SPRITE4_YELLOW_GFX:
+		.byte	%00111000
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%10010010
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%10101010
+			; I
+I_GFX:
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+
 ;
 ;********************************************************************
 ; DATA
@@ -1540,41 +1631,374 @@ SLOWDOWN:
 ;
 ; resume graphic character data
 		.res $1CD8 - *
-		.byte	$00, $10, $10, $6C, $10, $10, $00, $00	; [ explosion
-		.byte	$10, $44, $28, $C6, $28, $44, $10, $00	; # smoke
-		.byte	$92, $44, $00, $82, $00, $44, $92, $00	; ] dust
-		.byte	$00, $00, $00, $18, $18, $00, $00, $00	; ^ dot
-		.byte	$00, $3C, $7E, $7E, $7E, $7E, $3C, $00	; <- powerpill (animated)
-		.byte	$00, $00, $00, $00, $00, $00, $00, $00	;$20 empty space
-		.byte	$3C, $7E, $BD, $FF, $BD, $C3, $7E, $3C	; ! smiley
-		.byte	$04, $08, $18, $24, $62, $F7, $F2, $60	; " cherry
-		.byte	$10, $7C, $FE, $AA, $D6, $AA, $54, $28	; # strawberry
-		.byte	$20, $10, $7C, $FE, $FE, $FE, $7C, $38	; $ peach
-		.byte	$08, $10, $7C, $FE, $FE, $FE, $7C, $28	; % apple
-		.byte	$08, $10, $38, $38, $7C, $FE, $FE, $6C	; & pear
-		.byte	$10, $30, $92, $FE, $7C, $38, $10, $28	; ' tbird
-		.byte	$10, $38, $7C, $7C, $7C, $7C, $FE, $10	; ( bell
-		.byte	$18, $24, $18, $08, $08, $18, $08, $18	; ) key
-		.byte	$3C, $7E, $FF, $FF, $FF, $FF, $7E, $3C	; * pacman closed
-		.byte	$3E, $7C, $F8, $F0, $F0, $F8, $7C, $3E	; + pacman right
-		.byte	$3C, $7E, $FF, $FF, $E7, $C3, $81, $00	; , pacman down
-		.byte	$7C, $3E, $1F, $0F, $0F, $1F, $3E, $7C	; - pacman left
-		.byte	$00, $81, $C3, $E7, $FF, $FF, $7E, $3C	; . pacman up
-		.byte	$38, $7C, $FE, $92, $FE, $FE, $FE, $AA	; / ghost chasing
-		.byte	$38, $7C, $FE, $92, $FE, $82, $FE, $54	; 0 ghost fleeing
-		.byte	$00, $18, $24, $42, $42, $42, $42, $42	; 1 maze wall north
-		.byte	$42, $42, $42, $42, $42, $24, $18, $00	; 2 maze wall south
-		.byte	$00, $1F, $20, $40, $40, $20, $1F, $00	; 3 maze wall west
-		.byte	$00, $F8, $04, $02, $02, $04, $F8, $00	; 4 maze wall east
-		.byte	$42, $41, $40, $40, $40, $20, $1F, $00	; 5 maze wall s-w elbow
-		.byte	$42, $82, $02, $02, $02, $04, $F8, $00	; 6 maze wall s-e elbow
-		.byte	$00, $1F, $20, $40, $40, $40, $41, $42	; 7 maze wall n-w elbow
-		.byte	$00, $F8, $04, $02, $02, $02, $82, $42	; 8 maze wall n-e elbow
-		.byte	$42, $42, $42, $42, $42, $42, $42, $42	; 9 maze wall vertical
-		.byte	$00, $FF, $00, $00, $00, $00, $FF, $00	; : maze wall horizontal
-		.byte	$42, $41, $40, $40, $40, $40, $41, $42	; ; maze wall west tee
-		.byte	$42, $82, $02, $02, $02, $02, $82, $42	; < maze wall east tee
-		.byte	$00, $FF, $00, $00, $00, $00, $81, $42	; = maze wall north tee
-		.byte	$42, $81, $00, $00, $00, $00, $FF, $00	; > maze wall south tee
-		.byte	$3C, $42, $99, $A1, $A1, $99, $42, $3C	;(C)copyright symbol
+			; [ explosion
+EXPLOSION_GFX:
+		.byte	%00000000
+		.byte	%00010000
+		.byte	%00010000
+		.byte	%01101100
+		.byte	%00010000
+		.byte	%00010000
+		.byte	%00000000
+		.byte	%00000000
+			; # smoke
+SMOKE_GFX:
+		.byte	%00010000
+		.byte	%01000100
+		.byte	%00101000
+		.byte	%11000110
+		.byte	%00101000
+		.byte	%01000100
+		.byte	%00010000
+		.byte	%00000000
+			; ] dust
+DUST_GFX:
+		.byte	%10010010
+		.byte	%01000100
+		.byte	%00000000
+		.byte	%10000010
+		.byte	%00000000
+		.byte	%01000100
+		.byte	%10010010
+		.byte	%00000000
+			; ^ dot
+DOT_GFX:
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00011000
+		.byte	%00011000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+			; <- powerpill (animated)
+POWERPILL_ANIMATED_GFX:
+		.byte	%00000000
+		.byte	%00111100
+		.byte	%01111110
+		.byte	%01111110
+		.byte	%01111110
+		.byte	%01111110
+		.byte	%00111100
+		.byte	%00000000
+			; $20 empty space
+EMPTY_SPACE_GFX:
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+			; ! smiley
+SMILEY_GFX:
+		.byte	%00111100
+		.byte	%01111110
+		.byte	%10111101
+		.byte	%11111111
+		.byte	%10111101
+		.byte	%11000011
+		.byte	%01111110
+		.byte	%00111100
+			; " cherry
+CHERRY_GFX:
+		.byte	%00000100
+		.byte	%00001000
+		.byte	%00011000
+		.byte	%00100100
+		.byte	%01100010
+		.byte	%11110111
+		.byte	%11110010
+		.byte	%01100000
+			; # strawberry
+STRAWBERRY_GFX:
+		.byte	%00010000
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%10101010
+		.byte	%11010110
+		.byte	%10101010
+		.byte	%01010100
+		.byte	%00101000
+			; $ peach
+PEACH_GFX:
+		.byte	%00100000
+		.byte	%00010000
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%01111100
+		.byte	%00111000
+			; % apple
+APPLE_GFX:
+		.byte	%00001000
+		.byte	%00010000
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%01111100
+		.byte	%00101000
+			; & pear
+PEAR_GFX:
+		.byte	%00001000
+		.byte	%00010000
+		.byte	%00111000
+		.byte	%00111000
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%01101100
+			; ' tbird
+TBIRD_GFX:
+		.byte	%00010000
+		.byte	%00110000
+		.byte	%10010010
+		.byte	%11111110
+		.byte	%01111100
+		.byte	%00111000
+		.byte	%00010000
+		.byte	%00101000
+			; ( bell
+BELL_GFX:
+		.byte	%00010000
+		.byte	%00111000
+		.byte	%01111100
+		.byte	%01111100
+		.byte	%01111100
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%00010000
+			; ) key
+KEY_GFX:
+		.byte	%00011000
+		.byte	%00100100
+		.byte	%00011000
+		.byte	%00001000
+		.byte	%00001000
+		.byte	%00011000
+		.byte	%00001000
+		.byte	%00011000
+			; * pacman closed
+PACMAN_CLOSED_GFX:
+		.byte	%00111100
+		.byte	%01111110
+		.byte	%11111111
+		.byte	%11111111
+		.byte	%11111111
+		.byte	%11111111
+		.byte	%01111110
+		.byte	%00111100
+			; + pacman right
+PACMAN_RIGHT_GFX:
+		.byte	%00111110
+		.byte	%01111100
+		.byte	%11111000
+		.byte	%11110000
+		.byte	%11110000
+		.byte	%11111000
+		.byte	%01111100
+		.byte	%00111110
+			; , pacman down
+PACMAN_DOWN_GFX:
+		.byte	%00111100
+		.byte	%01111110
+		.byte	%11111111
+		.byte	%11111111
+		.byte	%11100111
+		.byte	%11000011
+		.byte	%10000001
+		.byte	%00000000
+			; - pacman left
+PACMAN_LEFT_GFX:
+		.byte	%01111100
+		.byte	%00111110
+		.byte	%00011111
+		.byte	%00001111
+		.byte	%00001111
+		.byte	%00011111
+		.byte	%00111110
+		.byte	%01111100
+			; . pacman up
+PACMAN_UP_GFX:
+		.byte	%00000000
+		.byte	%10000001
+		.byte	%11000011
+		.byte	%11100111
+		.byte	%11111111
+		.byte	%11111111
+		.byte	%01111110
+		.byte	%00111100
+			; / ghost chasing
+GHOST_CHASING_GFX:
+		.byte	%00111000
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%10010010
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%11111110
+		.byte	%10101010
+			; 0 ghost fleeing
+GHOST_FLEEING_GFX:
+		.byte	%00111000
+		.byte	%01111100
+		.byte	%11111110
+		.byte	%10010010
+		.byte	%11111110
+		.byte	%10000010
+		.byte	%11111110
+		.byte	%01010100
+			; 1 maze wall north
+MAZE_WALL_NORTH_GFX:
+		.byte	%00000000
+		.byte	%00011000
+		.byte	%00100100
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+			; 2 maze wall south
+MAZE_WALL_SOUTH_GFX:
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%00100100
+		.byte	%00011000
+		.byte	%00000000
+			; 3 maze wall west
+MAZE_WALL_WEST_GFX:
+		.byte	%00000000
+		.byte	%00011111
+		.byte	%00100000
+		.byte	%01000000
+		.byte	%01000000
+		.byte	%00100000
+		.byte	%00011111
+		.byte	%00000000
+			; 4 maze wall east
+MAZE_WALL_EAST_GFX:
+		.byte	%00000000
+		.byte	%11111000
+		.byte	%00000100
+		.byte	%00000010
+		.byte	%00000010
+		.byte	%00000100
+		.byte	%11111000
+		.byte	%00000000
+			; 5 maze wall s-w elbow
+MAZE_WALL_SW_ELBOW_GFX:
+		.byte	%01000010
+		.byte	%01000001
+		.byte	%01000000
+		.byte	%01000000
+		.byte	%01000000
+		.byte	%00100000
+		.byte	%00011111
+		.byte	%00000000
+			; 6 maze wall s-e elbow
+MAZE_WALL_SE_ELBOW_GFX:
+		.byte	%01000010
+		.byte	%10000010
+		.byte	%00000010
+		.byte	%00000010
+		.byte	%00000010
+		.byte	%00000100
+		.byte	%11111000
+		.byte	%00000000
+			; 7 maze wall n-w elbow
+MAZE_WALL_NW_ELBOW_GFX:
+		.byte	%00000000
+		.byte	%00011111
+		.byte	%00100000
+		.byte	%01000000
+		.byte	%01000000
+		.byte	%01000000
+		.byte	%01000001
+		.byte	%01000010
+			; 8 maze wall n-e elbow
+MAZE_WALL_NE_ELBOW_GFX:
+		.byte	%00000000
+		.byte	%11111000
+		.byte	%00000100
+		.byte	%00000010
+		.byte	%00000010
+		.byte	%00000010
+		.byte	%10000010
+		.byte	%01000010
+			; 9 maze wall vertical
+MAZE_WALL_VERTICAL_GFX:
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+		.byte	%01000010
+			; : maze wall horizontal
+MAZE_WALL_HORIZONTAL_GFX:
+		.byte	%00000000
+		.byte	%11111111
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%11111111
+		.byte	%00000000
+			; ; maze wall west tee
+MAZE_WALL_WEST_TEE_GFX:
+		.byte	%01000010
+		.byte	%01000001
+		.byte	%01000000
+		.byte	%01000000
+		.byte	%01000000
+		.byte	%01000000
+		.byte	%01000001
+		.byte	%01000010
+			; < maze wall east tee
+MAZE_WALL_EAST_TEE_GFX:
+		.byte	%01000010
+		.byte	%10000010
+		.byte	%00000010
+		.byte	%00000010
+		.byte	%00000010
+		.byte	%00000010
+		.byte	%10000010
+		.byte	%01000010
+			; = maze wall north tee
+MAZE_WALL_NORTH_TEE_GFX:
+		.byte	%00000000
+		.byte	%11111111
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%10000001
+		.byte	%01000010
+			; > maze wall south tee
+MAZE_WALL_SOUTH_TEE_GFX:
+		.byte	%01000010
+		.byte	%10000001
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%00000000
+		.byte	%11111111
+		.byte	%00000000
+			; (C)copyright symbol
+COPYRIGHT_SYMBOL_GFX:
+		.byte	%00111100
+		.byte	%01000010
+		.byte	%10011001
+		.byte	%10100001
+		.byte	%10100001
+		.byte	%10011001
+		.byte	%01000010
+		.byte	%00111100
 
