@@ -24,6 +24,16 @@ VIC			= $9000		; start of video interface chip registers
 RESET		= $FD22		; warm startup
 CHROUT		= $FFD2		; print character with cursor translation
 GETIN		= $FFE4		; get a character from keyboard queue
+; The VIC20 colors
+BLACK		= 0
+WHITE		= 1
+RED		= 2
+CYAN		= 3
+MAGENTA		= 4
+GREEN		= 5
+BLUE		= 6
+YELLOW		= 7
+
 ;
 ; my symbol / memory map
 ;			= $00		; base index (monster, sprite)
@@ -205,7 +215,7 @@ RESETCHR:
 		AND #$BF
 		ORA #$80
 		STA $1F18,X
-		LDA #$07		; make it yellow
+		LDA #YELLOW
 		STA $9718,X
 		DEX
 		BNE @loop2		; how geeky is that?
@@ -383,7 +393,7 @@ WONLEVEL:
 		STA SPRITE		; blink monsters
 		JSR SPRITES
 @next:	LDA FRAME
-		CMP #$06
+		CMP #BLUE
 		BNE @loop		; continue until true blue
 		LDA #$40
 		JSR PAUSE
@@ -480,7 +490,7 @@ NPC:
 		LDY #$04
 @loop1:	LDX PENALTY-1,Y
 		BNE @skip7		; is monster waiting in cage already?
-		LDA #$06		; no, make monster blue
+		LDA #BLUE		; no, make monster blue
 		STA SPRITECLR,Y
 		LDA #$80		; make monster fleeing (0)
 		STA SPRITEIMG1,Y
@@ -810,7 +820,7 @@ RESTORE:
 		INC FRUITLEVEL
 		LDA #$00
 		STA SPRITE		; turn off all sprites
-		LDA #$0E		; black / blue
+		LDA #16*BLACK+8+BLUE	; black / blue
 		STA VIC+$0F		; background / border color
 		LDA #$AF		; pink & highest
 		STA VIC+$0E		; auxiliary color & volume
@@ -824,7 +834,7 @@ RESTORE:
 		INX
 		BNE @draw
 		STX DOTS		; and no dots are eaten (yet)
-		LDX #$06		; blue
+		LDX #BLUE
 		JSR MAZEPAINT
 		LDX #$00
 @loop2:	LDA QUIKMANCLR,X ; reset monsters starting colors
@@ -842,7 +852,7 @@ RESTORE:
 		BEQ @next
 @loop4:	LDA #$2D		; quikman character
 		STA $1FE4,Y		; bottom-left of screen
-		LDA #$07		; use yellow
+		LDA #YELLOW
 		STA $97E4,Y		; and paint it
 		DEY
 		BNE @loop4
@@ -1274,7 +1284,8 @@ BACKGROUND:
 		CMP #$80		; is monster fleeing?
 		BNE @pp2
 		LDA SPRITECLR,Y
-		EOR #$07		; flash white / blue
+		EOR #WHITE+BLUE		; flash white / blue 
+					; WHITE+BLUE=7, BLUE xor 7 = WHITE, WHITE xor 7 = BLUE
 		STA SPRITECLR,Y
 @pp2:	DEY
 		BNE @pp1
@@ -1469,7 +1480,7 @@ SCORE	= * + $06
 BANNERMSG:		; ©2008 RHURST  F7=PLAY
 		.byte	$3F, $B2, $B0, $B0, $B8, $A0, $92, $88, $95, $92, $93, $94, $A0, $A0, $86, $B7, $BD, $90, $8C, $81, $99
 FRUITSCORE:
-		.byte	$01, $03, $05, $07, $0A, $14, $1E, $32
+		.byte	1, 3, 5, 7, 10, 20, 30, 50
 ;
 ;********************************************************************
 ; Custom character data -- must reside $1C00 - $1DFF
@@ -1578,18 +1589,15 @@ I_GFX:
 ;
 ;********************************************************************
 ; DATA
-QUIKMANCLR:		; yellow
-		.byte	$07
-MONSTERCLR:		; red, green, cyan, yellow
-		.byte	$02, $05, $03, $07
+QUIKMANCLR:	.byte	YELLOW
+MONSTERCLR:	.byte	RED, GREEN, CYAN, YELLOW
 CAGEDATA:		;
 		.byte	$00, $33, $76, $F9
 		.byte	$02, $03, $02, $00
 		.byte	$A0, $10, $00, $10, $A0, $B8, $00, $B8
 FRUIT:			; cherry, strawberry, 2-peach, 2-apple, 2-pineapple, 2-tbird, 2-bell, key
 		.byte	$22, $23, $24, $24, $25, $25, $26, $26, $27, $27, $28, $28, $29
-FRUITCLR:		; red, red, 2-yellow, 2-red, 2-green, 2-magenta, 2-yellow, cyan
-		.byte	$02, $02, $07, $07, $02, $02, $05, $05, $04, $04, $07, $07, $03
+FRUITCLR:	.byte	RED, RED, YELLOW, YELLOW, RED, RED, GREEN, GREEN, MAGENTA, MAGENTA, YELLOW, YELLOW, CYAN
 GOTEXT:			; GAME OVER
 		.byte	$87, $81, $8D, $85, $A0, $8F, $96, $85, $92
 INERTIA:		; maintain direction
@@ -1612,7 +1620,7 @@ GAMEOVER:
 		LDA #$20		; space
 @dead:	STA $1F17,X		; print character
 		STA $1B17,X
-		LDA #$02		; red
+		LDA #RED
 		STA $9717,X
 		DEX
 		BPL @loop
